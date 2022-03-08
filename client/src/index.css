@@ -1,0 +1,34 @@
+.nav-bg{
+  background-image: url('./assets//images/navbar/Phuket.svg');
+  background-size: cover;
+  background-position: right;
+}
+.fs-1-1{
+  font-size: 2.9rem;
+}
+.w-50{
+  width: 90%;
+}
+.form-label{
+  margin-bottom: -10px!important;
+  margin-left: 2.9px;
+}
+.cordinat-img{
+  position: absolute!important;
+  height: 59px;
+  left: -10px;
+}
+.bg-home{
+  background-color: #E5E5E5;
+}
+.bookmark-img{
+  top: 10px;
+  right: 10px;
+}
+
+.pos-ab{
+  position: absolute!important;
+}
+.pos-rel{
+  position: relative!important;
+}
