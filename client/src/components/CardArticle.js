@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Button, Image } from 'react-bootstrap'
-import cardImage from '../../assets/images/navbar/card-article.svg'
-import bookmark from '../../assets/images/navbar/Bookmark.svg'
+import cardImage from '../assets/images/navbar/card-article.svg'
+import bookmark from '../assets/images/navbar/Bookmark.svg'
 
 export default function CardArticle() {
   return (

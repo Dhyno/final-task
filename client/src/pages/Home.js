@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import Header from '../components/Header'
-import CardArticle from '../components/Home/CardArticle'
+import CardArticle from '../components/CardArticle'
 
 export default function Home() {
   return (

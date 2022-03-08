@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
-import CardArticle from '../components/Home/CardArticle'
+import CardArticle from '../components/CardArticle'
 
 import defaultUser from '../assets/images/navbar/default-user.png'
 
