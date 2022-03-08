@@ -15,10 +15,9 @@ export default function Header() {
     const handleShowRegister = () => setModalRegister(!modalRegister);
 
   return (
-    // <Container fluid className="nav-bg text-light">
-    <>
-        <Container className='bg-home'>
-            <Navbar className='mb-5'>
+    <Container fluid className='nav-style'>
+        <Container>
+            <Navbar className='mb-4'>
                 <Navbar.Brand>
                     {/* <Image className='cursor-p' 
                         src={navIcon}>
@@ -36,7 +35,6 @@ export default function Header() {
 
         { modalLogin&& <ModalLogin deactive={handleShowLogin} activereg={handleShowRegister}/>}
         { modalRegister&& <ModalRegister deactive={handleShowRegister}/>}
-    </>
-    // </Container>
+    </Container>
   )
 }
