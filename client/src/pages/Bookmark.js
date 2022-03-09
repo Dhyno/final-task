@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import Header from '../components/Header'
+import Header from '../components/Header/Header'
 import CardArticle from '../components/CardArticle'
 
 export default function Bookmark() {

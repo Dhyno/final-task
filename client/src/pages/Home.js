@@ -1,9 +1,13 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import Header from '../components/Header'
+import Header from '../components/Header/Header'
 import CardArticle from '../components/CardArticle'
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
+
+    const navigate=useNavigate();
+
   return (
     <>
         <Container fluid className="nav-bg text-light">
@@ -27,7 +31,7 @@ export default function Home() {
                 </div>
             </div>
             <Row>
-                <Col md={3}>
+                <Col onClick={()=>navigate(`/detailjourney/${1}`)} md={3}>
                     <CardArticle />
                 </Col>
                 <Col md={3}>

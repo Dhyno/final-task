@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Form, Modal, Button, Image } from 'react-bootstrap';
 
-import cordinat from '../assets/images/navbar/cordinat.svg'
+import cordinat from '../../assets/images/navbar/cordinat.svg'
 
 export default function ModalLogin({ deactive, activereg }) {
 
