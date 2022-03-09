@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 
 // Get routes to the variabel
-const router = require('./src/routes/index')
+const router = require('./src/routes')
 
 const app = express()
 
