@@ -22,7 +22,7 @@ export default function Header() {
     const [showPop, setPop] = useState(false)
     const handleShowToolTip = () => setPop(prevShow => !prevShow)
 
-    const [isLogin, setIslogin] = useState(false);//for dummies logic
+    const [isLogin, setIslogin] = useState(true);//for dummies logic
 
     const popover = (
         <Popover id='popover-positioned-bottom'>
