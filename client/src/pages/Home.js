@@ -1,16 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import Header from '../components/Header/Header'
 import CardArticle from '../components/CardArticle'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/userContext'
+import { API } from '../config/api'
 
 export default function Home() {
+    
+    const navigate=useNavigate();
 
     const [state, dispatch] = useContext(UserContext);
-    console.log(state.isLogin);
 
-    const navigate=useNavigate();
+    const [journey, setJourney] = useState([])
+
+    
+    const getData = async () => {
+        const response = await API.get('/journey');
+        console.log(response);
+        setJourney(response.data.result);
+    }
+
+    useEffect( () => {
+        getData();
+    }, [] )
 
   return (
     <>
@@ -38,27 +51,15 @@ export default function Home() {
                 </div>
             </div>
             <Row>
-                <Col onClick={()=>navigate(`/detailjourney/${1}`)} md={3}>
+                {
+                    journey.map(  data  => ( <Col md={3}> <CardArticle data={data} key={data.id} /> </Col> ) )
+                }
+                {/* <Col onClick={()=>navigate(`/detailjourney/${1}`)} md={3}>
                     <CardArticle />
-                </Col>
-                <Col md={3}>
+                </Col> */}
+                {/* <Col md={3}>
                     <CardArticle />
-                </Col>
-                <Col md={3}>
-                    <CardArticle />
-                </Col>
-                <Col md={3}>
-                    <CardArticle />
-                </Col>
-                <Col md={3}>
-                    <CardArticle />
-                </Col>
-                <Col md={3}>
-                    <CardArticle />
-                </Col>
-                <Col md={3}>
-                    <CardArticle />
-                </Col>
+                </Col> */}
             </Row>
         </Container>
     </>

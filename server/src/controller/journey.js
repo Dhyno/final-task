@@ -30,7 +30,17 @@ exports.addJourney = async (req, res ) => {
 exports.getAllJourney = async (req, res ) => {
     try{
 
-        const result = await journey.findAll()
+        const result = await journey.findAll({
+            include:[
+                {
+                    model: user,
+                    as: "user",
+                    attributes: {
+                        exclude: ['updatedAt',"password","email","phone"]
+                    },
+                }
+            ]
+        })
         // console.log(req.file)
         // console.log(req.user);
 

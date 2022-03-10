@@ -44,6 +44,11 @@
 .pos-rel{
   position: relative!important;
 }
+.card-image{
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+}
 .profile-img{
   height: 200px;
   width: 200px;
@@ -53,4 +58,12 @@
 }
 .cursor-p{
   cursor: pointer;
+}
+.select{
+  height: 100px;
+  overflow: hidden;
+}
+.dot{
+  margin-top: -40px;
+  font-size: 1.9rem;
 }

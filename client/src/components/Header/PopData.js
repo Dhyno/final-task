@@ -42,6 +42,10 @@ export default function PopData(props) {
             <Col md={3}><Image className="pop-img" src={logout}></Image></Col>
             <Col md={9} onClick={handleLogout} className="cursor-p fw-bold" ><h5>Logout</h5></Col>
         </Row>
+        <Row>
+            <Col md={3}><Image className="pop-img" src={logout}></Image></Col>
+            <Col md={9} onClick={handleLogout} className="cursor-p fw-bold" ><h5>detail</h5></Col><Col md={9} onClick={()=>{closeModal(); navigate(`/detailjourney/${1}`)}} className="cursor-p fw-bold" ><h5>detail</h5></Col>
+        </Row>
     </>
   )
 }
