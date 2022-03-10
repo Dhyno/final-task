@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Row ,Col, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,11 +6,23 @@ import bookmark from '../../assets/icons/pop/bookmark.svg'
 import logout from '../../assets/icons/pop/logout.svg'
 import newJourney from '../../assets/icons/pop/new-journey.svg'
 import user from '../../assets/icons/pop/user.svg'
+import { UserContext } from '../../context/userContext';
 
 export default function PopData(props) {
 
+    const [state, dispatch] = useContext(UserContext);
+
     const { closeModal } = props;
     const navigate=useNavigate();
+
+    const handleLogout = () => {
+        closeModal();
+        navigate('/');
+        dispatch({
+            type: "LOGOUT",
+            //payload: response.data.data,
+        })
+    }
 
   return (
     <>
@@ -28,7 +40,7 @@ export default function PopData(props) {
         </Row>
         <Row>
             <Col md={3}><Image className="pop-img" src={logout}></Image></Col>
-            <Col md={9} onClick={closeModal} className="cursor-p fw-bold" ><h5>Logout</h5></Col>
+            <Col md={9} onClick={handleLogout} className="cursor-p fw-bold" ><h5>Logout</h5></Col>
         </Row>
     </>
   )

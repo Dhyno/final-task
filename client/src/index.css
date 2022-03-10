@@ -3,9 +3,13 @@
   background-size: cover;
   background-position: right;
 }
-.nav-style{
+.nav-style-user{
   background-color: #F1F1F1;
   box-shadow: 0 2px 20px rgb(177, 171, 171);
+}
+.nav-style-guest{
+  background-color: transparent;
+  box-shadow: none;
 }
 .user-header-img{
   height: 50px;

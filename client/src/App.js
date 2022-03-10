@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-import { useState } from 'react'
+import { useContext } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link }from 'react-router-dom';
+
 
 import Home from "./pages/Home";
 import Bookmark from './pages/Bookmark';
@@ -11,14 +12,16 @@ import Profile from './pages/Profile';
 import DetailJourney from './pages/DetailJourney';
 import AddJourney from './pages/AddJourney';
 
+import { UserContext } from './context/userContext'
+
 export default function App() {
 
-  const [isLogin, setIslLogin]=useState(true);
+  const [state, dispatch] = useContext(UserContext)
 
   return (
     <div className="bg-home">
       <Router>
-        { isLogin && <Header /> }
+      { state.isLogin && <Header /> }
         <Routes>
           <Route path="/" element={ <Home /> }></Route>
           <Route path="/profile" element={ <Profile /> }></Route>

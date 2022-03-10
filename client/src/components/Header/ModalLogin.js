@@ -1,14 +1,27 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { Form, Modal, Button, Image } from 'react-bootstrap';
 
 import cordinat from '../../assets/images/navbar/cordinat.svg'
+import { UserContext } from '../../context/userContext';
 
 export default function ModalLogin({ deactive, activereg }) {
+    
+    const [state, dispatch] = useContext(UserContext);
 
     const [showLogin, setShowLogin] = useState(true);
     const handleCloseLogin = () => {
         setShowLogin(false);
         deactive()
+    }
+
+    const handleLoginSubmit = e => {
+        e.preventDefault();
+        handleCloseLogin();
+
+        dispatch({
+            type: "LOGIN_SUCCESS",
+            // payload: response.data.data,
+        });
     }
 
     return(
@@ -17,7 +30,7 @@ export default function ModalLogin({ deactive, activereg }) {
                 <Modal.Body> 
                 <Image className='cordinat-img sticky-top' src={cordinat}></Image>
                     <h2 className='text-red py-4 fw-bold text-center'>Login</h2>   
-                    <Form>
+                    <Form onSubmit={handleLoginSubmit} >
                         <Form.Group>
                             <Form.Label for="email">
                                 <h6 className='fw-bold form-label'>Email</h6>
