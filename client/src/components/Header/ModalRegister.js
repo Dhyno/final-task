@@ -1,14 +1,53 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Form, Modal, Button, Image  } from 'react-bootstrap';
+import{ API } from '../../config/api'
+import { UserContext } from '../../context/userContext';
 
 import cordinat from '../../assets/images/navbar/cordinat.svg'
 
 export default function ModalRegister({ deactive }) {
 
+    const [state, dispatch] = useContext(UserContext);
+
     const [showRegister, setshowRegister] = useState(true);
     const handleCloseRegister = () => {
         setshowRegister(false);
         deactive()
+    }
+
+    const handleSUbmitRegister = async (e) => {
+        e.preventDefault();
+        console.log(e.target.name.value)
+        console.log(e.target.email.value)
+        console.log(e.target.password.value)
+        console.log(e.target.phone.value)
+        // console.log(e.target.name.value)
+        const data={
+            name: e.target.name.value,
+            email: e.target.email.value,
+            password: e.target.password.value,
+            phone: e.target.phone.value,
+            address: 'empty adress'
+        }
+        const body = JSON.stringify(data);
+        const config = {
+            headers: {
+            "Content-type": "application/json",
+            },
+        };
+
+        const response = await API.post("/register", body, config);
+        
+        if(response.status==200){
+            setshowRegister(false);
+            deactive();
+            dispatch({
+                type: "LOGIN_SUCCESS",
+                payload: response.data.data,
+            });
+        }
+
+        console.log(data);
     }
 
     return(
@@ -17,12 +56,12 @@ export default function ModalRegister({ deactive }) {
                 <Modal.Body>
                     <Image className='cordinat-img sticky-top' src={cordinat}></Image>
                     <h2 className='text-red py-4 fw-bold text-center'>Register</h2>   
-                    <Form>
+                    <Form onSubmit={handleSUbmitRegister}>
                         <Form.Group>
                             <Form.Label for="fullName">
                                 <h6 className='fw-bold form-label'>fullName</h6>
                             </Form.Label>
-                            <Form.Control type="fullName" name="fullName" id="fullName" className='mb-2 py-2 bg-soft b-red border-2' placeholder="Email" />
+                            <Form.Control type="fullName" name="name" id="fullName" className='mb-2 py-2 bg-soft b-red border-2' placeholder="Email" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label for="email">

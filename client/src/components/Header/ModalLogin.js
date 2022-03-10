@@ -1,8 +1,9 @@
 import React, {useContext, useState} from 'react'
 import { Form, Modal, Button, Image } from 'react-bootstrap';
 
-import cordinat from '../../assets/images/navbar/cordinat.svg'
+import { API } from '../../config/api';
 import { UserContext } from '../../context/userContext';
+import cordinat from '../../assets/images/navbar/cordinat.svg'
 
 export default function ModalLogin({ deactive, activereg }) {
     
@@ -14,14 +15,38 @@ export default function ModalLogin({ deactive, activereg }) {
         deactive()
     }
 
-    const handleLoginSubmit = e => {
+    const handleLoginSubmit = async e => {
         e.preventDefault();
         handleCloseLogin();
 
-        dispatch({
-            type: "LOGIN_SUCCESS",
-            // payload: response.data.data,
-        });
+        console.log(e.target.email.value);
+        console.log(e.target.password.value);
+
+        const formLogin={email: e.target.email.value, password: e.target.password.value}
+        console.log(formLogin);
+
+        const body = JSON.stringify(formLogin);
+        const config = {
+            headers: {
+            "Content-type": "application/json",
+            },
+        };
+
+        const response = await API.post("/login", body, config);
+        console.log(response);
+
+        if(response.status==200){
+            deactive();
+            dispatch({
+                type: "LOGIN_SUCCESS",
+                payload: response.data.data,
+            });
+        } 
+
+        // dispatch({
+        //     type: "LOGIN_SUCCESS",
+        //     payload: response.data.data,
+        // });
     }
 
     return(

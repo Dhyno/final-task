@@ -64,7 +64,16 @@ exports.getUserJourney = async (req, res ) => {
         const result = await journey.findAll({
             where: {
                 idUser: req.user.id
-            }
+            },
+            include:[
+                {
+                    model: user,
+                    as: "user",
+                    attributes: {
+                        exclude: ['updatedAt',"password","email","phone"]
+                    },
+                }
+            ]
         })
         // console.log(req.file)
         // console.log(req.user);

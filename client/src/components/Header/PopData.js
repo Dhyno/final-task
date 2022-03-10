@@ -18,10 +18,7 @@ export default function PopData(props) {
     const handleLogout = () => {
         closeModal();
         navigate('/');
-        dispatch({
-            type: "LOGOUT",
-            //payload: response.data.data,
-        })
+        dispatch({ type: "LOGOUT"})
     }
 
   return (

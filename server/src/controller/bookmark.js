@@ -1,4 +1,4 @@
-const { bookmark,journey } = require("../../models");
+const { bookmark,journey, user } = require("../../models");
 
 exports.addBookmark = async (req, res ) => {
     try{
@@ -35,7 +35,15 @@ exports.getBookmark = async (req, res ) => {
                 {
                     model: journey,
                     as: "journey",
-                    
+                    include:[
+                        {
+                            model: user,
+                            as: "user",
+                            attributes: {
+                                exclude: ['updatedAt',"password","email","phone"]
+                            },
+                        }
+                    ]
                 }
             ],
             attributes: {

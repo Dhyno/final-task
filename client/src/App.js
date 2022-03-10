@@ -11,6 +11,7 @@ import Header from './components/Header/Header';
 import Profile from './pages/Profile';
 import DetailJourney from './pages/DetailJourney';
 import AddJourney from './pages/AddJourney';
+import PrivateRoute from './route/PrivateRoute';
 
 import { UserContext } from './context/userContext'
 
@@ -24,10 +25,12 @@ export default function App() {
       { state.isLogin && <Header /> }
         <Routes>
           <Route path="/" element={ <Home /> }></Route>
-          <Route path="/profile" element={ <Profile /> }></Route>
-          <Route path="/bookmark" element={ <Bookmark /> }></Route>
-          <Route path="/newjourney" element={ <AddJourney /> }></Route>
-          <Route path="/detailjourney/:id" element={ <DetailJourney /> }></Route>
+          <Route path="/" element={ <PrivateRoute /> } >
+            <Route path="/profile" element={ <Profile /> }></Route>
+            <Route path="/bookmark" element={ <Bookmark /> }></Route>
+            <Route path="/newjourney" element={ <AddJourney /> }></Route>
+            <Route path="/detailjourney/:id" element={ <DetailJourney /> }></Route>
+          </Route>
         </Routes>
       </Router>
     </div>

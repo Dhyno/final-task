@@ -21,9 +21,7 @@ export default function Home() {
         setJourney(response.data.result);
     }
 
-    useEffect( () => {
-        getData();
-    }, [] )
+    useEffect( () => getData(), [] )
 
   return (
     <>
@@ -54,12 +52,6 @@ export default function Home() {
                 {
                     journey.map(  data  => ( <Col md={3}> <CardArticle data={data} key={data.id} /> </Col> ) )
                 }
-                {/* <Col onClick={()=>navigate(`/detailjourney/${1}`)} md={3}>
-                    <CardArticle />
-                </Col> */}
-                {/* <Col md={3}>
-                    <CardArticle />
-                </Col> */}
             </Row>
         </Container>
     </>

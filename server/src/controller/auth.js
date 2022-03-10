@@ -52,6 +52,7 @@ exports.register = async (req, res) => {
       data: {
         name: newUser.name,
         email: newUser.email,
+        image: process.env.FILE_PATH+newUser.image,
         token
       },
     });
