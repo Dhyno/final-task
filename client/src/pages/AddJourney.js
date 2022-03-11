@@ -21,6 +21,7 @@ export default function AddJourney() {
   let editorState = EditorState.createEmpty();
   const [description, setDescription] = useState(editorState);
   const onEditorStateChange = (editorState, id) => {
+    console.log("change")
     setCount(userInfo.description.value.length-8);
     setDescription(editorState);
   }
@@ -39,8 +40,7 @@ export default function AddJourney() {
   }
   
   const [uploadImage, setUploadImage] = useState([])
-  const getImage = ( file, callback ) => {
-    // console.log(file);
+  const getImage = ( file, callback ) =>{
     let tempUpload=uploadImage;
     tempUpload.push(file);
     setUploadImage(tempUpload);
@@ -56,9 +56,15 @@ export default function AddJourney() {
             <form onSubmit={handleAddData} className="update__forms">
               <h1 className='fs-1-1 my-5'>New Journey </h1>
               <div className="form-row">
-                <div className="form-group col-md-12">
+                <div className="form-group col-md-10">
                   <label className="fw-bold"> Title <span className="required"></span> </label>
                   <input type="text" name="title" value={userInfo.title} onChange={onChangeValue}  className="form-control"  required />
+                </div>
+                <div className="form-group col-md-2 my-4">
+                  <label for="image" className="fw-bold">
+                    <button className='btn btn-secondary mx-2 py-2'>Title Image</button>
+                  </label>
+                  <input type="file" name="image" id='image' className="form-control"  required hidden/>
                 </div>
                 <div className="form-group col-md-12 editor bg-light">
                   <h2 className='mb-2'></h2>
