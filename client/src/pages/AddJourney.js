@@ -21,25 +21,18 @@ export default function AddJourney() {
   let editorState = EditorState.createEmpty();
   const [description, setDescription] = useState(editorState);
   const onEditorStateChange = (editorState, id) => {
-    console.log("change")
     setCount(userInfo.description.value.length-8);
     setDescription(editorState);
+    // const index=[...userInfo.description.value.matchAll(new RegExp('img','gi'))].map( a => a.index);
+    // setCountDescriptionImage(index.length);
   }
+
 
   const [isError, setError] = useState(null);
   const [count, setCount] = useState(0);
 
-  const handleAddData = e => {
-    e.preventDefault();
-
-    //for send
-    // console.log(userInfo.title)
-    // console.log(userInfo.description.value)
-
-    console.log(uploadImage);
-  }
-  
   const [uploadImage, setUploadImage] = useState([])
+  // const [countDescriptionImage, setCountDescriptionImage] = useState(0);
   const getImage = ( file, callback ) =>{
     let tempUpload=uploadImage;
     tempUpload.push(file);
@@ -48,23 +41,55 @@ export default function AddJourney() {
     return new Promise( ( resolve, reject ) => resolve( { data: { link: URL.createObjectURL(file) }  } ) )
   }
 
+  const [showData, setShowData]=useState({});
+  const [image, setImage] = useState()
+  const handleChange = (e) => {
+    let imageFile=e.target.files[0];
+    setImage(imageFile);
+
+    let url = URL.createObjectURL(imageFile);
+    setShowData({...showData, image: url});
+  }
+
+  const handleSubmitData = e => {
+    e.preventDefault();
+
+    const token= localStorage.getItem('token')
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${token}`,//to get id user and send for api insert id user into table journey
+        "Content-type": "multipart/form-data",
+      },
+    };
+
+    let formFile= new FormData();
+    formFile.set("title", userInfo.title)
+    formFile.set("description", userInfo.description.value)
+    formFile.set("image", image);
+    console.log(formFile);
+
+    // const response = await API.post("/product", formFile, config);
+
+    //for send
+    // console.log(userInfo.title)
+    // console.log(userInfo.description.value)
+    // console.log(image);
+
+
+    // console.log(uploadImage); send for table journey assets after add journey success and get it id
+  }
+
   return (
     <>
-      <div className="App add-j">
+      <div className="App add-j pb-5">
         <div className="container">
           <div className="row"> 
-            <form onSubmit={handleAddData} className="update__forms">
+            <form onSubmit={handleSubmitData} className="update__forms">
               <h1 className='fs-1-1 my-5'>New Journey </h1>
               <div className="form-row">
-                <div className="form-group col-md-10">
+                <div className="form-group col-md-12">
                   <label className="fw-bold"> Title <span className="required"></span> </label>
                   <input type="text" name="title" value={userInfo.title} onChange={onChangeValue}  className="form-control"  required />
-                </div>
-                <div className="form-group col-md-2 my-4">
-                  <label for="image" className="fw-bold">
-                    <button className='btn btn-secondary mx-2 py-2'>Title Image</button>
-                  </label>
-                  <input type="file" name="image" id='image' className="form-control"  required hidden/>
                 </div>
                 <div className="form-group col-md-12 editor bg-light">
                   <h2 className='mb-2'></h2>
@@ -81,6 +106,10 @@ export default function AddJourney() {
                           previewImage: true,
                           urlEnabled: false,
                           inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg,image/SVG',
+                          defaultSize: {
+                            height: 'auto',
+                            width: 100,
+                          },
                         }
                       }}
                     />
@@ -90,9 +119,17 @@ export default function AddJourney() {
                 <div className='bg-light text-end px-2 py-2'>
                   <h6>Character: {count} </h6>
                 </div>
+                <div className='row'>
+                  <div className="form-group col-md-12 mt-4 mb-2">
+                    <input onChange={handleChange} type="file" name="image" id='images' className="form-control"  required />
+                  </div>
+                </div>
                 <div className="form-group col-sm-12 text-end">
-                  <button type="submit" className="btn btn-primary my-5"> Submit  </button>
+                  <button type="submit" className="btn btn-primary mt-2"> Submit  </button>
                 </div> 
+              </div>
+              <div className='col-md-12 text-center'>
+                <img className="w-50" src={showData.image} />
               </div> 
             </form>
           </div>
