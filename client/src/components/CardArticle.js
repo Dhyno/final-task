@@ -1,24 +1,46 @@
-import React from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Button, Image } from 'react-bootstrap'
+
+import { UserContext } from '../context/userContext';
 
 import { filterDate, filterTitle } from '../filterAndConvert/filterConvert'
 
 import cardImage from '../assets/images/navbar/card-article.svg'
 import bookmark from '../assets/images/navbar/Bookmark.svg'
+import afterBookmark from '../assets/icons/card-component/bookmark-after.png'
+import { DataContext } from '../context/dataContext';
+
+import { Tilt, options } from '../config/Tilt';
 
 export default function CardArticle( props ) {
-  const { data } = props;
+
+  const { data, handleChange } = props;
   const imgUrl=`http://localhost:5000/uploads/${data.image}`;
 
   const navigate= useNavigate();
-  
-  // let root = parse(data.description);
+
+  const [state, dispatch] = useContext(UserContext);
+  const [dataState, dispatchData] = useContext(DataContext)
+
+  const [imgBookmark, setImgBookmark] = useState(bookmark);
+
+  const handleBookMark = () => {
+    if(imgBookmark==bookmark){
+      setImgBookmark(afterBookmark)
+      handleChange(data.id, true )
+    } else{
+      setImgBookmark(bookmark)
+      handleChange(data.id, false )
+    }
+  }
+
+  useEffect(()=> dataState.bookmark.map( databookmark => databookmark.idJourney == data.id  && setImgBookmark(afterBookmark) ) , [dataState]);
 
   return (
+    <Tilt options={options}>
       <div className='pos-rel'>
-        <Card className='my-4'>
-            {/* <Card.Img className='img-fluid w-full' variant="top" src={imgUrl+data.image} /> */}
+        <Card className='my-5'>
             <div  onClick={()=>navigate(`/detailjourney/${data.id}`)} className='card-image cursor-p' style= {{backgroundImage: `url(${imgUrl})`}} ></div>
             <Card.Body>
                 <Card.Title className='fw-bold'>{filterTitle(data.title)}</Card.Title>
@@ -28,7 +50,8 @@ export default function CardArticle( props ) {
                 <span onClick={()=>navigate(`/detailjourney/${data.id}`)} className='text-primary cursor-p'>More</span>
             </Card.Body>
         </Card>
-        <Image className='bookmark-img pos-ab' src={bookmark} />
-    </div>
+        { ( state.isLogin && dataState.onHomePage ) && <Image onClick={handleBookMark} className='bookmark-img pos-ab' src={imgBookmark} /> }
+      </div>
+    </Tilt>
   )
 }

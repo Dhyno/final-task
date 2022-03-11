@@ -6,6 +6,8 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+import { API } from '../config/api'
+
 export default function AddJourney() {
 
   const [userInfo, setuserInfo] = useState({
@@ -51,7 +53,7 @@ export default function AddJourney() {
     setShowData({...showData, image: url});
   }
 
-  const handleSubmitData = e => {
+  const handleSubmitData = async e => {
     e.preventDefault();
 
     const token= localStorage.getItem('token')
@@ -68,14 +70,8 @@ export default function AddJourney() {
     formFile.set("image", image);
     console.log(formFile);
 
-    // const response = await API.post("/product", formFile, config);
-
-    //for send
-    // console.log(userInfo.title)
-    // console.log(userInfo.description.value)
-    // console.log(image);
-
-
+    const response = await API.post("/journey", formFile, config);
+    console.log(response);
     // console.log(uploadImage); send for table journey assets after add journey success and get it id
   }
 

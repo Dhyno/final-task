@@ -4,6 +4,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useContext } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link }from 'react-router-dom';
 
+import { DataContextProvider } from './context/dataContext';
+
 
 import Home from "./pages/Home";
 import Bookmark from './pages/Bookmark';
@@ -21,18 +23,20 @@ export default function App() {
 
   return (
     <div className="bg-home">
-      <Router>
-      { state.isLogin && <Header /> }
-        <Routes>
-          <Route path="/" element={ <Home /> }></Route>
-          <Route path="/" element={ <PrivateRoute /> } >
-            <Route path="/profile" element={ <Profile /> }></Route>
-            <Route path="/bookmark" element={ <Bookmark /> }></Route>
-            <Route path="/newjourney" element={ <AddJourney /> }></Route>
+      <DataContextProvider>
+        <Router>
+        { state.isLogin && <Header /> }
+          <Routes>
+            <Route path="/" element={ <Home /> }></Route>
             <Route path="/detailjourney/:id" element={ <DetailJourney /> }></Route>
-          </Route>
-        </Routes>
-      </Router>
+            <Route path="/" element={ <PrivateRoute /> } >
+              <Route path="/profile" element={ <Profile /> }></Route>
+              <Route path="/bookmark" element={ <Bookmark /> }></Route>
+              <Route path="/newjourney" element={ <AddJourney /> }></Route>
+            </Route>
+          </Routes>
+        </Router>
+      </DataContextProvider>
     </div>
   );
 }

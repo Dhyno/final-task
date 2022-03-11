@@ -34,8 +34,11 @@
   background-color: #E5E5E5;
 }
 .bookmark-img{
+  transition: 0.6s ease;
   top: 10px;
   right: 10px;
+  width: 40px;
+  height: 40px;
 }
 
 .pos-ab{
@@ -43,6 +46,8 @@
 }
 .pos-rel{
   position: relative!important;
+  box-shadow: 5px 5px 20px rgb(151, 149, 149);
+  transition: 0.6s ease;
 }
 .card-image{
   height: 200px;
@@ -63,4 +68,14 @@
 .dot{
   margin-top: -40px;
   font-size: 1.9rem;
+}
+
+.bookmark-img:hover{
+  transform: scale(1.1);
+}
+
+.pos-rel:hover{
+  box-shadow: 0 0 0 transparent;
+  margin-top: -20px;
+  
 }

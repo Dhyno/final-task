@@ -6,11 +6,13 @@ import bookmark from '../../assets/icons/pop/bookmark.svg'
 import logout from '../../assets/icons/pop/logout.svg'
 import newJourney from '../../assets/icons/pop/new-journey.svg'
 import user from '../../assets/icons/pop/user.svg'
+import { DataContext } from '../../context/dataContext';
 import { UserContext } from '../../context/userContext';
 
 export default function PopData(props) {
 
     const [state, dispatch] = useContext(UserContext);
+    const [dataState, dispatchData] = useContext(DataContext);
 
     const { closeModal } = props;
     const navigate=useNavigate();
@@ -19,6 +21,7 @@ export default function PopData(props) {
         closeModal();
         navigate('/');
         dispatch({ type: "LOGOUT"})
+        dispatchData({ type: 'DELETE_BOOKMARK'})
     }
 
   return (

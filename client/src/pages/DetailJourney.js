@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { API } from '../config/api';
 
+import Header from '../components/Header/Header'
+
 import { filterDate } from '../filterAndConvert/filterConvert';
 
 import mainImage from '../assets/images/navbar/card-article.svg'
+import { UserContext } from '../context/userContext';
 
 export default function DetailJourney() {
   
@@ -14,9 +17,11 @@ export default function DetailJourney() {
 
   const id=useParams().id
   
+  const [state, dispatch] = useContext(UserContext)
+
   const imgElement = useRef(null)
   const [styleImg, setStyleImg]=useState();
-  const handleImgRender = () => imgElement.current.naturalHeight>1000 ? setStyleImg(670) : setStyleImg("100%");
+  const handleImgRender = () => imgElement.current.naturalHeight>890 ? setStyleImg(670) : setStyleImg("100%");
 
   const [stateJourney, setStateJourney] = useState(null)
   const getData = async () => {
@@ -31,6 +36,7 @@ export default function DetailJourney() {
 
   return (
     <>
+      {!state.isLogin && <Header />}
       {stateJourney &&
         <Container className='px-5 py-5 bg-home'>
             <Row className='d-flex align-items-center py-5'>

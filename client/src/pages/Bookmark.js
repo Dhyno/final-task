@@ -19,7 +19,6 @@ export default function Bookmark() {
         const response = await API.get('/bookmark',config);
         // console.log(response);
         let getAlljourney=response.data.result.map( data => data.journey);
-        console.log(getAlljourney);
         setJourney(getAlljourney);
     }
 

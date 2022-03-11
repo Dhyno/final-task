@@ -4,10 +4,12 @@ import { Form, Modal, Button, Image } from 'react-bootstrap';
 import { API } from '../../config/api';
 import { UserContext } from '../../context/userContext';
 import cordinat from '../../assets/images/navbar/cordinat.svg'
+import { DataContext } from '../../context/dataContext'; 
 
 export default function ModalLogin({ deactive, activereg }) {
     
     const [state, dispatch] = useContext(UserContext);
+    const [dataState, dispatchData] = useContext(DataContext)
 
     const [showLogin, setShowLogin] = useState(true);
     const handleCloseLogin = () => {
@@ -19,11 +21,10 @@ export default function ModalLogin({ deactive, activereg }) {
         e.preventDefault();
         handleCloseLogin();
 
-        console.log(e.target.email.value);
-        console.log(e.target.password.value);
+        // console.log(e.target.email.value);
+        // console.log(e.target.password.value);
 
         const formLogin={email: e.target.email.value, password: e.target.password.value}
-        console.log(formLogin);
 
         const body = JSON.stringify(formLogin);
         const config = {
@@ -33,20 +34,24 @@ export default function ModalLogin({ deactive, activereg }) {
         };
 
         const response = await API.post("/login", body, config);
-        console.log(response);
-
+        // console.log(response.data.data.token);
+        
         if(response.status==200){
             deactive();
             dispatch({
                 type: "LOGIN_SUCCESS",
                 payload: response.data.data,
             });
+
+            const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${response.data.data.token}`} })
+            // const indeksBookmark=responseAPI.data.result.map( data => data.idJourney);
+            console.log(responseAPI.data.result)
+            dispatchData({
+                type: 'INIT_BOOKMARK',
+                payload: responseAPI.data.result
+            })
         } 
 
-        // dispatch({
-        //     type: "LOGIN_SUCCESS",
-        //     payload: response.data.data,
-        // });
     }
 
     return(
