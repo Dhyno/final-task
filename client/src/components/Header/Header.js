@@ -1,14 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Navbar, Nav, Image, Popover, OverlayTrigger } from 'react-bootstrap'
-import ModalLogin from './ModalLogin'
-import ModalRegister from './ModalRegister'
-import PopData from './PopData'
-
-import navIcon from '../../assets/images/navbar/nav-icon.svg'
-import navIconLogin from '../../assets/images/navbar/nav-icon-login.svg'
-import defaultUser from '../../assets/images/navbar/default-user.png'
-import { UserContext } from '../../context/userContext'
+import { ModalLogin, ModalRegister, PopData, UserContext } from '../../export/exportComponent'
+import { navIcon, navIconLogin, } from '../../export/exportImage'
 
 export default function Header() {
 
@@ -50,7 +44,7 @@ export default function Header() {
                     { state.isLogin ?
                         <OverlayTrigger show={showPop} trigger='click' placement="bottom" overlay={popover}>
                             <Nav.Link>
-                                <img className="user-header-img rounded-circle" src={defaultUser} onClick={handleShowToolTip} />
+                                <img className="user-header-img rounded-circle" src={state.user.image} onClick={handleShowToolTip} />
                             </Nav.Link>
                         </OverlayTrigger>
                         :

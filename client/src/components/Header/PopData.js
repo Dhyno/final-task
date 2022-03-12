@@ -1,13 +1,8 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Row ,Col, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
-import bookmark from '../../assets/icons/pop/bookmark.svg'
-import logout from '../../assets/icons/pop/logout.svg'
-import newJourney from '../../assets/icons/pop/new-journey.svg'
-import user from '../../assets/icons/pop/user.svg'
-import { DataContext } from '../../context/dataContext';
-import { UserContext } from '../../context/userContext';
+import { DataContext, UserContext } from '../../export/exportComponent'
+import { bookmark, logout, newJourney, user } from '../../export/exportImage'
 
 export default function PopData(props) {
 

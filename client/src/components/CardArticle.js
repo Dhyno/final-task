@@ -1,18 +1,8 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Button, Image } from 'react-bootstrap'
-
-import { UserContext } from '../context/userContext';
-import { API } from '../config/api';
-
-import { filterDate, filterTitle } from '../filterAndConvert/filterConvert'
-
-import cardImage from '../assets/images/navbar/card-article.svg'
-import bookmark from '../assets/images/navbar/Bookmark.svg'
-import afterBookmark from '../assets/icons/card-component/bookmark-after.png'
-import { DataContext } from '../context/dataContext';
-
-import { Tilt, options } from '../config/Tilt';
+import { UserContext, API, filterDate, filterTitle, DataContext, Tilt, options } from '../export/exportComponent';
+import { bookmarkIcon as bookmark, bookmarkAfter as afterBookmark } from '../export/exportImage'
 
 export default function CardArticle( props ) {
   

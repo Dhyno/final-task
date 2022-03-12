@@ -1,9 +1,7 @@
-import React, {useState, useContext} from 'react'
+import {useState, useContext} from 'react'
 import { Form, Modal, Button, Image  } from 'react-bootstrap';
-import{ API } from '../../config/api'
-import { UserContext } from '../../context/userContext';
-
-import cordinat from '../../assets/images/navbar/cordinat.svg'
+import { API, UserContext } from '../../export/exportComponent'
+import { cordinat } from  '../../export/exportImage'
 
 export default function ModalRegister({ deactive }) {
 

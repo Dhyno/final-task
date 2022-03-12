@@ -1,10 +1,7 @@
-import React, {useContext, useState} from 'react'
+import {useContext, useState} from 'react'
 import { Form, Modal, Button, Image } from 'react-bootstrap';
-
-import { API } from '../../config/api';
-import { UserContext } from '../../context/userContext';
-import cordinat from '../../assets/images/navbar/cordinat.svg'
-import { DataContext } from '../../context/dataContext'; 
+import { API, UserContext, DataContext } from '../../export/exportComponent'
+import { cordinat } from  '../../export/exportImage'
 
 export default function ModalLogin({ deactive, activereg }) {
     
@@ -34,7 +31,7 @@ export default function ModalLogin({ deactive, activereg }) {
         };
 
         const response = await API.post("/login", body, config);
-        // console.log(response.data.data.token);
+        console.log(response.data);
         
         if(response.status==200){
             deactive();

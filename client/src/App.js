@@ -2,20 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
 import { useContext } from 'react'
-import { BrowserRouter as Router, Route, Routes, Link }from 'react-router-dom';
-
 import { DataContextProvider } from './context/dataContext';
-
-
-import Home from "./pages/Home";
+import { BrowserRouter as Router, Route, Routes, Link }from 'react-router-dom';
+import { UserContext, Home, Header, Profile, DetailJourney, AddJourney, PrivateRoute } from './export/exportComponent'
 import Bookmark from './pages/Bookmark';
-import Header from './components/Header/Header';
-import Profile from './pages/Profile';
-import DetailJourney from './pages/DetailJourney';
-import AddJourney from './pages/AddJourney';
-import PrivateRoute from './route/PrivateRoute';
-
-import { UserContext } from './context/userContext'
 
 export default function App() {
 
