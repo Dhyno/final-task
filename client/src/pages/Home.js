@@ -15,36 +15,55 @@ export default function Home() {
     const [dataState, dispatchData] = useContext(DataContext);
 
     const [journey, setJourney] = useState([])
-    const [bookmarkIdList, setBookmarkIdList] = useState([])
+
+    const [styleBg, setStyleBg]=useState('#E5E5E5')
 
     const getData = async () => {
         const response = await API.get('/journey');
-        console.log(response);
         setJourney(response.data.result);
     }
 
-    const handleChange = ( id, addId )  => {//cause if in card use api it will much consume api, so call api when unmount
-        if(addId){
-            setBookmarkIdList([...bookmarkIdList, id]);
-        } else {
-            // let tempValue=[...bookmarkIdList];
-            // tempValue=tempValue.filter( idlist => idlist!=id);
-            setBookmarkIdList(prev=> prev=prev.filter(idlist => idlist!=id) );
-        }
-    }
-    const test =()=>{
-        console.log(bookmarkIdList);
-    }
+    // const handleChange = ( id, addId )  => addId ? setBookmarkIdList([...bookmarkIdList, id]) : setBookmarkIdList(prev=> prev=prev.filter(idlist => idlist!=id) );
 
     useEffect( () => { 
         getData();  
         dispatchData({type: "ON_HOME"});
 
-        return() => {
+        return async () => {
             dispatchData({type: "NOT_ON_HOME"}); 
+            // if(state.isLogin){
+                // console.log(dataState.postBookmark);
+                // const body = JSON.stringify(test);
+                // const token= localStorage.getItem('token')
+                // const config = {
+                //     headers: {
+                //       "Authorization": `Bearer ${token}`,//decode token to get id that current login
+                //       "Content-type": "application/json",
+                //     },
+                //   };
 
+                // await API.post('/bookmark', body, config);
+
+            // }
         }
     } , [] )
+
+    useEffect(()=>{
+        console.log('change');
+        return async ()=>{
+            const body = JSON.stringify(dataState.postBookmark);
+            const token= localStorage.getItem('token')
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`,//decode token to get id that current login
+                    "Content-type": "application/json",
+                },
+            };
+
+            await API.post('/bookmark', body, config);
+            // dispatchData({type: "CLEAR_BOOKMARK_LIST"});
+        }
+    },[dataState.postBookmark])
 
   return (
     <>
@@ -61,7 +80,7 @@ export default function Home() {
                 </Container>
             </Container>
         }
-        <Container fluid className='px-5 py-5 bg-home'>
+        <Container fluid className='px-5 py-5 bg-home' style={{backgroundColor: styleBg}}> 
             <h2 className='fw-bold'>Journey</h2>
             <div className='row g-0 mt-4 mx-4'>
                 <div className='col-md-10'>
@@ -73,13 +92,12 @@ export default function Home() {
             </div>
             <Row>
                 { journey.map(  data  => ( 
-                    <Col lg={3}> 
-                        <CardArticle handleChange={(id, addId )=>handleChange(id, addId)} data={data} key={data.id} /> 
+                    <Col onMouseEnter={()=>setStyleBg("black")} onMouseLeave={()=>setStyleBg('#E5E5E5')} lg={3}> 
+                        <CardArticle data={data} key={data.id} /> 
                     </Col> 
                 ) ) }
             </Row>
         </Container>
-        <button onClick={test}>click</button>
     </>
   )
 }

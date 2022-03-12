@@ -3,16 +3,17 @@ const { bookmark,journey, user } = require("../../models");
 exports.addBookmark = async (req, res ) => {
     try{
 
-        const result = await bookmark.create({
-            idJourney: req.body.idJourney,
-            idUser: req.user.id 
-        })
-        // console.log(req.body)
+        // const result = await bookmark.create({
+        //     idJourney: req.body.idJourney,
+        //     idUser: req.user.id 
+        // })
+        console.log('add');
+        console.log(req.body)
         // console.log(req.user);
 
         res.status(200).send({
             message: "success",
-            result
+            // result
         })
 
     } catch (err){

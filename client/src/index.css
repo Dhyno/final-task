@@ -32,6 +32,7 @@
 }
 .bg-home{
   background-color: #E5E5E5;
+  transition: 0.6s ease;
 }
 .bookmark-img{
   transition: 0.6s ease;
@@ -69,13 +70,15 @@
   margin-top: -40px;
   font-size: 1.9rem;
 }
+.galssmophism-active{
+  background-color: transparent!important;
+}
 
 .bookmark-img:hover{
   transform: scale(1.1);
 }
 
-.pos-rel:hover{
+/* .pos-rel:hover{
   box-shadow: 0 0 0 transparent;
-  margin-top: -20px;
-  
-}
+  margin-top: -29px;
+} */

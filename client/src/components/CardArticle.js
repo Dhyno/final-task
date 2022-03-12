@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Card, Button, Image } from 'react-bootstrap'
 
 import { UserContext } from '../context/userContext';
+import { API } from '../config/api';
 
 import { filterDate, filterTitle } from '../filterAndConvert/filterConvert'
 
@@ -15,7 +16,7 @@ import { Tilt, options } from '../config/Tilt';
 
 export default function CardArticle( props ) {
 
-  const { data, handleChange } = props;
+  const { data } = props;
   const imgUrl=`http://localhost:5000/uploads/${data.image}`;
 
   const navigate= useNavigate();
@@ -25,22 +26,45 @@ export default function CardArticle( props ) {
 
   const [imgBookmark, setImgBookmark] = useState(bookmark);
 
-  const handleBookMark = () => {
+  const handleBookMark = async () => {
     if(imgBookmark==bookmark){
       setImgBookmark(afterBookmark)
-      handleChange(data.id, true )
+      dispatchData({
+        type: 'ADD_BOOKMARK_LIST',
+        payload: data.id
+      })
+      console.log(dataState.postBookmark);
     } else{
       setImgBookmark(bookmark)
-      handleChange(data.id, false )
+
+      for(let i=0; i<dataState.bookmark.length; i++){
+        if(dataState.bookmark[i].idJourney == data.id){
+          const response = await API.delete(`/bookmark/${dataState.bookmark[i].id}`);
+          console.log(response);
+          if(response.status==200){
+            const token= localStorage.getItem('token')
+            const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${token}`} })
+            dispatchData({
+                type: 'INIT_BOOKMARK',
+                payload: responseAPI.data.result
+            })
+          }
+        }
+      }
+      dispatchData({
+        type: 'FILTER_BOOKMARK_LIST',
+        payload: data.id
+      })
+
     }
   }
 
   useEffect(()=> dataState.bookmark.map( databookmark => databookmark.idJourney == data.id  && setImgBookmark(afterBookmark) ) , [dataState]);
 
   return (
-    <Tilt options={options}>
+    // <Tilt options={options}>
       <div className='pos-rel'>
-        <Card className='my-5'>
+        <Card className='galssmophism-active my-5'>
             <div  onClick={()=>navigate(`/detailjourney/${data.id}`)} className='card-image cursor-p' style= {{backgroundImage: `url(${imgUrl})`}} ></div>
             <Card.Body>
                 <Card.Title className='fw-bold'>{filterTitle(data.title)}</Card.Title>
@@ -52,6 +76,6 @@ export default function CardArticle( props ) {
         </Card>
         { ( state.isLogin && dataState.onHomePage ) && <Image onClick={handleBookMark} className='bookmark-img pos-ab' src={imgBookmark} /> }
       </div>
-    </Tilt>
+    // </Tilt>
   )
 }

@@ -22,7 +22,7 @@ export default function App() {
   const [state, dispatch] = useContext(UserContext)
 
   return (
-    <div className="bg-home">
+    <div className="bg-home" id='home'>
       <DataContextProvider>
         <Router>
         { state.isLogin && <Header /> }

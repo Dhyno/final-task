@@ -22,7 +22,7 @@ export default function Profile() {
     };
 
     const response = await API.get('/userjourney',config);
-    console.log(response);
+    // console.log(response);
     setJourney(response.data.result);
   }
 
