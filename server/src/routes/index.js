@@ -20,7 +20,7 @@ router.get('/journey', getAllJourney);
 
 router.post('/bookmark', auth, addBookmark )//
 router.get('/bookmark', auth, getBookmark )
-router.delete('/bookmark/:id', deleteBookmark )//
+router.delete('/bookmark/:id', deleteBookmark )
 
 module.exports = router;
 

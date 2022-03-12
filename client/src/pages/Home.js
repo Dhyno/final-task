@@ -28,42 +28,8 @@ export default function Home() {
     useEffect( () => { 
         getData();  
         dispatchData({type: "ON_HOME"});
-
-        return async () => {
-            dispatchData({type: "NOT_ON_HOME"}); 
-            // if(state.isLogin){
-                // console.log(dataState.postBookmark);
-                // const body = JSON.stringify(test);
-                // const token= localStorage.getItem('token')
-                // const config = {
-                //     headers: {
-                //       "Authorization": `Bearer ${token}`,//decode token to get id that current login
-                //       "Content-type": "application/json",
-                //     },
-                //   };
-
-                // await API.post('/bookmark', body, config);
-
-            // }
-        }
+        return  () =>  dispatchData({type: "NOT_ON_HOME"}); 
     } , [] )
-
-    useEffect(()=>{
-        console.log('change');
-        return async ()=>{
-            const body = JSON.stringify(dataState.postBookmark);
-            const token= localStorage.getItem('token')
-            const config = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,//decode token to get id that current login
-                    "Content-type": "application/json",
-                },
-            };
-
-            await API.post('/bookmark', body, config);
-            // dispatchData({type: "CLEAR_BOOKMARK_LIST"});
-        }
-    },[dataState.postBookmark])
 
   return (
     <>
@@ -98,6 +64,7 @@ export default function Home() {
                 ) ) }
             </Row>
         </Container>
+        <button onClick={()=>console.log(dataState.postBookmark)}>cick</button>
     </>
   )
 }

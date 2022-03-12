@@ -4,8 +4,8 @@ export const DataContext = createContext();
 
 const initialState = {
   bookmark: [],//init from fetch api,
-  postBookmark: [],
-  onHomePage : true
+  onHomePage : true,
+  // postBookmark: [],
 };
 
 const reducer = (state, action) => {
@@ -15,19 +15,19 @@ const reducer = (state, action) => {
         return{ ...state, bookmark: action.payload }
     case "DELETE_BOOKMARK":
         return{ ...state, bookmark: [] }
-    case "ADD_BOOKMARK":
-      return{ ...state, bookmarkSendAPI: action.payload }
+    // case "ADD_BOOKMARK":
+    //   return{ ...state, bookmarkSendAPI: action.payload }
     case "ON_HOME":
       return{ ...state, onHomePage: true}
     case "NOT_ON_HOME":
       return{ ...state, onHomePage: false}
-    case "ADD_BOOKMARK_LIST":
-      return{...state, postBookmark: [...state.postBookmark,action.payload]}
-    case "FILTER_BOOKMARK_LIST":
-      const list=state.postBookmark.filter( idList => idList!=action.payload)
-      return{...state, postBookmark: list}
-    case "CLEAR_BOOKMARK_LIST":
-      return{ ...state, postBookmark: []}
+    // case "ADD_BOOKMARK_LIST":
+    //   return{...state, postBookmark: [...state.postBookmark,action.payload]}
+    // case "FILTER_BOOKMARK_LIST":
+    //   const list=state.postBookmark.filter( idList => idList!=action.payload)
+    //   return{...state, postBookmark: list}
+    // case "CLEAR_BOOKMARK_LIST":
+    //   return{ ...state, postBookmark: []}
     default:
       throw new Error();
   }

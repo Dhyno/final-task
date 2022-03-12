@@ -45,7 +45,7 @@ export default function ModalLogin({ deactive, activereg }) {
 
             const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${response.data.data.token}`} })
             // const indeksBookmark=responseAPI.data.result.map( data => data.idJourney);
-            console.log(responseAPI.data.result)
+            // console.log(responseAPI.data.result)
             dispatchData({
                 type: 'INIT_BOOKMARK',
                 payload: responseAPI.data.result

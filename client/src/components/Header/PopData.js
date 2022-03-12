@@ -21,7 +21,7 @@ export default function PopData(props) {
         closeModal();
         navigate('/');
         dispatch({ type: "LOGOUT"})
-        dispatchData({ type: 'DELETE_BOOKMARK'})
+        dispatchData({type: 'DELETE_BOOKMARK'})
     }
 
   return (

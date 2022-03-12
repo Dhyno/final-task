@@ -15,7 +15,7 @@ import { DataContext } from '../context/dataContext';
 import { Tilt, options } from '../config/Tilt';
 
 export default function CardArticle( props ) {
-
+  
   const { data } = props;
   const imgUrl=`http://localhost:5000/uploads/${data.image}`;
 
@@ -26,14 +26,25 @@ export default function CardArticle( props ) {
 
   const [imgBookmark, setImgBookmark] = useState(bookmark);
 
+  const token= localStorage.getItem('token')
+
   const handleBookMark = async () => {
     if(imgBookmark==bookmark){
-      setImgBookmark(afterBookmark)
-      dispatchData({
-        type: 'ADD_BOOKMARK_LIST',
-        payload: data.id
-      })
-      console.log(dataState.postBookmark);
+
+      setImgBookmark(afterBookmark);
+
+      const dataId={idJourney: data.id};
+      const body = JSON.stringify(dataId);
+
+      const response=await API.post('/bookmark', body, { headers: { "Authorization": `Bearer ${token}`, "Content-type": "application/json"}})
+      if(response.status==200){
+        const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${token}`} })
+          dispatchData({
+              type: 'INIT_BOOKMARK',
+              payload: responseAPI.data.result
+          })
+      }
+
     } else{
       setImgBookmark(bookmark)
 
@@ -42,7 +53,7 @@ export default function CardArticle( props ) {
           const response = await API.delete(`/bookmark/${dataState.bookmark[i].id}`);
           console.log(response);
           if(response.status==200){
-            const token= localStorage.getItem('token')
+           
             const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${token}`} })
             dispatchData({
                 type: 'INIT_BOOKMARK',
@@ -51,15 +62,11 @@ export default function CardArticle( props ) {
           }
         }
       }
-      dispatchData({
-        type: 'FILTER_BOOKMARK_LIST',
-        payload: data.id
-      })
-
     }
   }
 
-  useEffect(()=> dataState.bookmark.map( databookmark => databookmark.idJourney == data.id  && setImgBookmark(afterBookmark) ) , [dataState]);
+  useEffect(()=> dataState.bookmark.map( databookmark => databookmark.idJourney == data.id  && setImgBookmark(afterBookmark) ) , [dataState.bookmark]);
+  useEffect(()=> !state.isLogin && setImgBookmark(bookmark),[state.isLogin])
 
   return (
     // <Tilt options={options}>
