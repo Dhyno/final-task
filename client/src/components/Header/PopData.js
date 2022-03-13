@@ -21,22 +21,30 @@ export default function PopData(props) {
 
   return (
     <>
-        <Row className="py-2 px-2 mb-2 d-flex align-items-center">
-            <Col md={3}><Image className="pop-img" src={user}></Image></Col>
-            <Col md={9}><h5 onClick={()=>{closeModal(); navigate('/profile')}} className="cursor-p fw-bold">Profile</h5></Col>
-        </Row>
-        <Row className="py-2 px-2 mb-2">
-            <Col md={3}><Image className="pop-img" src={newJourney}></Image></Col>
-            <Col md={9}><h5 onClick={()=>{closeModal(); navigate('newjourney')}} className="cursor-p fw-bold">New Journey</h5></Col>
-        </Row>
-        <Row className="py-2 px-2 mb-2 border-bottom border-2">
-            <Col md={3}><Image className="pop-img" src={bookmark}></Image></Col>
-            <Col md={9}><h5 onClick={()=>{closeModal(); navigate('/bookmark')}} className="cursor-p fw-bold">Bookmark</h5></Col>
-        </Row>
-        <Row>
-            <Col md={3}><Image className="pop-img" src={logout}></Image></Col>
-            <Col md={9} onClick={handleLogout} className="cursor-p fw-bold" ><h5>Logout</h5></Col>
-        </Row>
+        <div className='pop-list py-2 px-2 mb-2'>
+            <div className='img-list'>
+                <img className="pop-img" src={user} />
+            </div>
+            <h6 onClick={()=>{closeModal(); navigate('/profile')}} className="cursor-p fw-bold">Profile</h6>
+        </div>
+        <div className='pop-list py-2 px-2 mb-2'>
+            <div className='img-list'>
+                <img className="pop-img" src={newJourney} />
+            </div>
+            <h6 onClick={()=>{closeModal(); navigate('newjourney')}} className="cursor-p fw-bold">New Journey</h6>
+        </div>
+        <div className='pop-list py-2 px-2 mb-2 border-bottom border-2'>
+            <div className='img-list'>
+                <img className="pop-img" src={bookmark} />
+            </div>
+            <h6 onClick={()=>{closeModal(); navigate('/bookmark')}} className="cursor-p fw-bold">Bookmark</h6>
+        </div>
+        <div className='pop-list'>
+            <div className='img-list'>
+                <img className="pop-img" src={logout} />
+            </div>
+            <h6 onClick={handleLogout} className="cursor-p fw-bold" >Logout</h6>
+        </div>
     </>
   )
 }

@@ -4,22 +4,18 @@ import { CardArticle, API, BookMarkEmpty } from '../export/exportComponent'
 
 export default function Bookmark() {
 
-    const [journey, setJourney] = useState([])
+  const [journey, setJourney] = useState([])
 
-    const getData = async () => {
-        const token= localStorage.getItem('token')
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token}`,//decode token to get id that current login
-            },
-        };
+  const getData = async () => {
+    const token= localStorage.getItem('token')
 
-        const response = await API.get('/bookmark',config);
-        let getAlljourney=response.data.result.map( data => data.journey);
-        setJourney(getAlljourney);
-    }
+    const response = await API.get('/bookmark', { headers: { "Authorization": `Bearer ${token}`, } } );
+    let getAlljourney=response.data.result.map( data => data.journey);
+    setJourney(getAlljourney);
+  }
 
-    useEffect( () => getData(), [] )
+  useEffect( () => getData(), [] )
+  
   return (
     <Container fluid className='px-5 py-5 bg-home'>
         { journey.length<=0 ? ( <BookMarkEmpty /> )

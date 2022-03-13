@@ -15,10 +15,7 @@ export default function Home() {
     const [searchTitle, setSeacrchTiltle]= useState('');
     const [iseError, setIsError] = useState(false);
 
-    const getData =  () => {
-        API.get('/journey').then( res=>setJourney(res.data.result))
-        .catch(err=> setIsError(true))
-    }
+    const getData =  () =>  API.get('/journey') .then( res=>setJourney(res.data.result)) .catch(err=> setIsError(true));
 
     useEffect( () => { 
         getData();  
@@ -45,9 +42,9 @@ export default function Home() {
                 <h2 className='fw-bold'>Journey</h2>
                 <div className='row g-0 mt-4 mx-4'>
                     <div className='col-md-10'>
-                        <input onChange={(e)=>setSeacrchTiltle(e.target.value)} type="text" placeholder='Find Journey' className='form-control border-0'/>
+                        <input onChange={(e)=>setSeacrchTiltle(e.target.value)} type="text" placeholder='Find Journey' className='form-control my-2 border-0'/>
                     </div>
-                    <div className='col-md-2'>
+                    <div className='col-md-2 my-2 md-center'>
                         <div className='btn btn-primary px-3'>Seacrh</div>
                     </div>
                 </div>

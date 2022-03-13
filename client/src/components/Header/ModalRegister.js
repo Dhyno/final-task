@@ -15,36 +15,22 @@ export default function ModalRegister({ deactive }) {
 
     const handleSUbmitRegister = async (e) => {
         e.preventDefault();
-        console.log(e.target.name.value)
-        console.log(e.target.email.value)
-        console.log(e.target.password.value)
-        console.log(e.target.phone.value)
-        // console.log(e.target.name.value)
+
         const data={
             name: e.target.name.value,
             email: e.target.email.value,
             password: e.target.password.value,
             phone: e.target.phone.value,
             address: 'empty adress'
-        }
-        const body = JSON.stringify(data);
-        const config = {
-            headers: {
-            "Content-type": "application/json",
-            },
-        };
+        }; const body = JSON.stringify(data);
 
-        const response = await API.post("/register", body, config);
+        const response = await API.post("/register", body, { headers: { "Content-type": "application/json", } } );
         
         if(response.status==200){
             setshowRegister(false);
             deactive();
-            dispatch({
-                type: "LOGIN_SUCCESS",
-                payload: response.data.data,
-            });
+            dispatch({ type: "LOGIN_SUCCESS", payload: response.data.data } );
         }
-
         console.log(data);
     }
 

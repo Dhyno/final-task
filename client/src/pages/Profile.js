@@ -9,15 +9,9 @@ export default function Profile() {
 
 
   const getData = async () => {
+    
     const token= localStorage.getItem('token')
-    const config = {
-        headers: {
-          "Authorization": `Bearer ${token}`,//decode token to get id that current login
-        },
-    };
-
-    const response = await API.get('/userjourney',config);
-    // console.log(response);
+    const response = await API.get('/userjourney', { headers: { "Authorization": `Bearer ${token}` } } );
     setJourney(response.data.result);
   }
 
@@ -25,26 +19,22 @@ export default function Profile() {
 
   return (
     <Container fluid className='px-5 py-5 bg-home'>
-      { journey.length<=0 ? ( <ProfileEmpty /> )
-        :
-        <>
-          <h2 className='fw-bold'>Profile</h2>
-          <div>
-              <Row className='text-center mt-5 mb-2'>
-                  <Col>
-                      <img className='profile-img rounded-circle' src={state.user.image} />
-                  </Col>
-                  <h2 className='fw-bold'>{state.user.name}</h2>
-                  <h6 className='text-secondary'>{state.user.email}</h6>
-              </Row>
-          </div>
-          <Row>
-              {
-                  journey.map(  data  => ( <Col md={3}> <CardArticle data={data} key={data.id} /> </Col> ) )
-              }
-          </Row>
-        </>
-      }
+        <h2 className='fw-bold'>Profile</h2>
+        <div className='mb-5'>
+            <Row className='text-center mt-5 mb-2'>
+                <Col>
+                    <img className='profile-img rounded-circle' src={state.user.image} />
+                </Col>
+                <h2 className='fw-bold'>{state.user.name}</h2>
+                <h6 className='text-secondary'>{state.user.email}</h6>
+            </Row>
+        </div>
+        <Row>
+            { journey.length<=0 ? ( <ProfileEmpty /> ) 
+              :
+              journey.map(  data  => ( <Col md={3}> <CardArticle data={data} key={data.id} /> </Col> ) )
+            }
+        </Row>
     </Container>
   )
 }

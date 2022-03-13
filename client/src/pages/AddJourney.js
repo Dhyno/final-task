@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { API } from '../config/api'
+import { API, Tilt, options } from '../export/exportComponent'
 
 import { EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -25,16 +25,12 @@ export default function AddJourney() {
   const onEditorStateChange = (editorState, id) => {
     setCount(userInfo.description.value.length-8);
     setDescription(editorState);
-    // const index=[...userInfo.description.value.matchAll(new RegExp('img','gi'))].map( a => a.index);
-    // setCountDescriptionImage(index.length);
   }
-
 
   const [isError, setError] = useState(null);
   const [count, setCount] = useState(0);
 
   const [uploadImage, setUploadImage] = useState([])
-  // const [countDescriptionImage, setCountDescriptionImage] = useState(0);
   const getImage = ( file, callback ) =>{
     let tempUpload=uploadImage;
     tempUpload.push(file);
@@ -121,12 +117,14 @@ export default function AddJourney() {
                   </div>
                 </div>
                 <div className="form-group col-sm-12 text-end">
-                  <button type="submit" className="btn btn-primary mt-2"> Submit  </button>
+                  <button type="submit" className="btn btn-primary mt-2 mb-4"> Submit  </button>
                 </div> 
               </div>
-              <div className='col-md-12 text-center'>
-                <img className="w-50" src={showData.image} />
-              </div> 
+              <Tilt options={options}>
+                <div className='col-md-12 text-center '>
+                  <img className="w-50 add-journey-img" src={showData.image} />
+                </div> 
+              </Tilt>
             </form>
           </div>
         </div>
