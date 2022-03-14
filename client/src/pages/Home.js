@@ -11,7 +11,6 @@ export default function Home() {
     const [dataState, dispatchData] = useContext(DataContext);
 
     const [journey, setJourney] = useState([])
-    const [styleBg, setStyleBg]=useState('#E5E5E5')
     const [searchTitle, setSeacrchTiltle]= useState('');
     const [iseError, setIsError] = useState(false);
 
@@ -38,7 +37,7 @@ export default function Home() {
                     </Container>
                 </Container>
             }
-            <Container fluid className='px-5 py-5 bg-home' style={{backgroundColor: styleBg}}> 
+            <Container fluid className='px-5 py-5 bg-home'> 
                 <h2 className='fw-bold'>Journey</h2>
                 <div className='row g-0 mt-4 mx-4'>
                     <div className='col-md-10'>
@@ -51,7 +50,7 @@ export default function Home() {
                 <Row>
                     { journey.filter( list => list.title.toLowerCase().includes(searchTitle.toLowerCase()) )
                         .map(  data  => ( 
-                            <Col onMouseEnter={()=>setStyleBg("black")} onMouseLeave={()=>setStyleBg('#E5E5E5')} lg={3}> 
+                            <Col lg={3}> 
                                 <CardArticle data={data} key={data.id} /> 
                             </Col> )
                         ) 

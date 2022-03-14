@@ -9,7 +9,6 @@ export default function Profile() {
   const [journey, setJourney] = useState([])
 
   const [style, setStyle]=useState({
-    backgroundColor: '#e5e5e5',
     showEdit: false,
     inputValue: '',
     placeHolder: 'Type here',
@@ -35,7 +34,6 @@ export default function Profile() {
         }
       }
       setStyle({
-        backgroundColor: '#e5e5e5',
         showEdit: false,
         inputValue: '',
         placeHolder: 'Type here',
@@ -56,7 +54,7 @@ export default function Profile() {
   useEffect( () => getData(), [] )
 
   return (
-    <Container fluid className='px-5 py-5 bg-home' style={{backgroundColor: style.backgroundColor}}>
+    <Container fluid className='px-5 py-5 bg-home'>
         <h2 className='fw-bold'>Profile</h2>
         <div className='mb-5 text-center'>
             <Row className='d-flex justify-content-center mt-5 mb-2'>
@@ -73,7 +71,7 @@ export default function Profile() {
                   <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={
                     <Tooltip id="button-tooltip">{style.tipNotif}</Tooltip>}
                   >
-                    <input onKeyPress={handleChange} onFocus={()=>setStyle({...style, backgroundColor: 'black'})} className='inp-profile' type='text' placeholder={style.placeHolder}/> 
+                    <input onKeyPress={handleChange} className='inp-profile' type='text' placeholder={style.placeHolder}/> 
                   </OverlayTrigger>
                   :
                   <>

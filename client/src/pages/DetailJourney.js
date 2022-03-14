@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { API, Header, filterDate, UserContext, Tilt, options } from '../export/exportComponent';
+import { API, Header, filterDate, UserContext} from '../export/exportComponent';
 
 export default function DetailJourney() {
   
@@ -41,14 +41,12 @@ export default function DetailJourney() {
                 <h6 className='text-primary mt-4'>{filterDate(stateJourney.createdAt)}</h6>
             </Row>
             <Row className='d-flex justify-content-center'>
-              <Tilt options={options}>
-                <Col className='text-center'>
-                    <img style={{width: styleImg}} className='img-fluid' src={imgUrl+stateJourney.image} 
-                      onLoad={handleImgRender}
-                      ref={imgElement}
-                    />   
-                </Col>
-              </Tilt>
+              <Col className='text-center'>
+                  <img style={{width: styleImg}} className='img-fluid' src={imgUrl+stateJourney.image} 
+                    onLoad={handleImgRender}
+                    ref={imgElement}
+                  />   
+              </Col>
             </Row>
             <Row className='mt-5 text-secondary bg-home t-align-justify' dangerouslySetInnerHTML={{ __html: stateJourney.description }} >
             </Row>          

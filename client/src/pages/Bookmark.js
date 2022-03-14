@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { CardArticle, API, BookMarkEmpty } from '../export/exportComponent'
+import { CardArticle, API, BookMarkEmpty, DataContext } from '../export/exportComponent'
 
 export default function Bookmark() {
 
   const [journey, setJourney] = useState([])
+  const [dataState, dispatchData] = useContext(DataContext);
 
   const getData = async () => {
     const token= localStorage.getItem('token')
@@ -12,9 +13,14 @@ export default function Bookmark() {
     const response = await API.get('/bookmark', { headers: { "Authorization": `Bearer ${token}`, } } );
     let getAlljourney=response.data.result.map( data => data.journey);
     setJourney(getAlljourney);
+    
   }
 
-  useEffect( () => getData(), [] )
+  useEffect( () =>{
+    getData();
+    dispatchData({type: "ON_HOME"});
+    return  () =>  dispatchData({type: "NOT_ON_HOME"}); 
+  },[] )
   
   return (
     <Container fluid className='px-5 py-5 bg-home'>
