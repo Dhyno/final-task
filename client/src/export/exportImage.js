@@ -17,5 +17,9 @@ import navIconLogin from '../assets/images/navbar/nav-icon-login.svg'
 import navIcon from '../assets/images/navbar/nav-icon.svg'
 import phuket from '../assets/images/navbar/Phuket.svg'
 
+import pen from '../assets/icons/profile/pen.png'
+import camera from '../assets/icons/profile/camera.png'
+
+
 export { afterBookmark, bookmarkAfter, bookmark, logout, newJourney, user, addBookmark, addContent, serverError,
-    bookmarkIcon, cardArticle, cordinat, navIconLogin, navIcon, phuket}
+    bookmarkIcon, cardArticle, cordinat, navIconLogin, navIcon, phuket, pen, camera}

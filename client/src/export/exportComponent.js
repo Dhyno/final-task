@@ -24,8 +24,10 @@ import AddJourney from '../pages/AddJourney'
 import BookMark from '../pages/Bookmark'
 import DetailJourney from '../pages/DetailJourney'
 import Home from '../pages/Home'
+
 import Profile from '../pages/Profile'
+import EditImageProfile from '../components/Header/profile/EditImageProfile'
 
 export { Header, ModalLogin, ModalRegister, PopData, CardArticle, API, Tilt, options, DataContext, UserContext,
-        filterDate, filterTitle, AddJourney, BookMark, DetailJourney, Home, Profile, BookMarkEmpty, ServerError, 
-        ProfileEmpty, PrivateRoute}
+        filterDate, filterTitle, AddJourney, BookMark, DetailJourney, Home, Profile, EditImageProfile, BookMarkEmpty,
+        ServerError, ProfileEmpty, PrivateRoute}
