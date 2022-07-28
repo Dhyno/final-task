@@ -48,7 +48,7 @@ export default function EditImageProfile({ closeModal }) {
       setPreview(url);
       
     //   console.log(file);
-    //   closeModal();
+      closeModal();
     })
     
   }
@@ -72,7 +72,7 @@ export default function EditImageProfile({ closeModal }) {
                 <div className='text-end pt-2'>
                     <button onClick={saveChange} className='save'>Save</button>
                 </div>
-                <img src={preview} />
+                {/* <img src={preview} /> */}
             </Modal.Body>
         </Modal>
         <Modal size='sm' show={modalChoose} centered onHide={handleCloseChoose} className='modal-choose'>

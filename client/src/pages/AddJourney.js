@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap'
 import { API, Tilt, options } from '../export/exportComponent'
 
@@ -10,6 +11,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export default function AddJourney() {
 
+  const navigate=useNavigate()
   const [userInfo, setuserInfo] = useState({
     title: '',
   });
@@ -68,6 +70,7 @@ export default function AddJourney() {
 
     const response = await API.post("/journey", formFile, config);
     console.log(response);
+    navigate('/');
     // console.log(uploadImage); send for table journey assets after add journey success and get it id
   }
 
@@ -120,11 +123,11 @@ export default function AddJourney() {
                   <button type="submit" className="btn btn-primary mt-2 mb-4"> Submit  </button>
                 </div> 
               </div>
-              <Tilt options={options}>
+              {/* <Tilt options={options}> */}
                 <div className='col-md-12 text-center '>
                   <img className="w-50 add-journey-img" src={showData.image} />
                 </div> 
-              </Tilt>
+              {/* </Tilt> */}
             </form>
           </div>
         </div>

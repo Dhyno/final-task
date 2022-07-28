@@ -29,6 +29,7 @@ export default function CardArticle( props ) {
       if(response.status==200){
         const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${token}`} })
         dispatchData({ type: 'INIT_BOOKMARK', payload: responseAPI.data.result })
+        alert('success add bookmark')
       }
 
     } else{
@@ -42,6 +43,7 @@ export default function CardArticle( props ) {
           if(response.status==200){
             const responseAPI = await API.get('/bookmark',{headers: { "Authorization": `Bearer ${token}`} })
             dispatchData({ type: 'INIT_BOOKMARK', payload: responseAPI.data.result })
+            alert('success delete bookmark')
           }
         }
       }

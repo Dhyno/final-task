@@ -9,9 +9,14 @@ const { auth } = require('../middlewares/auth');
 const { register, login } = require('../controller/auth');
 const { addJourney, getAllJourney, getUserJourney, getDetailJourney } = require('../controller/journey');
 const { addBookmark, getBookmark, deleteBookmark } = require('../controller/bookmark');
+const { changeName, reloadProfile, changeImage } = require('../controller/user');
 
 router.post('/register', register);
 router.post('/login', login);
+
+router.patch('/profile',auth, changeName);
+router.patch('/profileimage',auth ,uploadFile("image"), changeImage);//chang user image
+router.get('/profilereload',auth,reloadProfile);
 
 router.post('/journey', auth, uploadFile('image'), addJourney);//
 router.get('/userjourney', auth, getUserJourney);

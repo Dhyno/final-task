@@ -1,33 +1,46 @@
 import React, { useContext, useState, useEffect, Fragment, useRef } from 'react'
 import { Container, Row, Col, OverlayTrigger, Tooltip,} from 'react-bootstrap'
 import { CardArticle, API, UserContext, ProfileEmpty, EditImageProfile } from '../export/exportComponent'
-import { pen, camera } from '../export/exportImage'
+import { pen, camera, user } from '../export/exportImage'
 
 export default function Profile() {
     
   const [state, dispatch] = useContext(UserContext);
   const [journey, setJourney] = useState([])
+  const [showData, setShowData]=useState({});
 
   const [style, setStyle]=useState({
     showEdit: false,
     inputValue: '',
     placeHolder: 'Type here',
-    tipNotif: 'name must more 5 character'
+    tipNotif: 'name must more 4 character'
   })
 
-  const handleChange = (e) => {
+  const token= localStorage.getItem('token')
+  const config = {
+    headers: {
+        "Authorization": `Bearer ${token}`,//decode token to get id that current login
+        "Content-type": "application/json",
+    },
+  };
+
+  const handleChange = async (e) => {
     let value = e.target.value;
     if(e.which==0x0D){
-      if(value.length < 5){
+      if(value.length < 4){
         e.target.value='';
-        let message='name must more 5 character'
+        let message='name must more 4 character'
         return setStyle({...style, placeHolder: message, tipNotif: message})
       } else {
         value=value.toLowerCase();
         let isValid = true;
-        [...value].map( e  =>  !(e >="a" && e<="z") ? isValid=false : console.log('catch'));
+        [...value].map( e  =>  !(e >="a" && e<="z" || e == ' ') ? isValid=false : console.log(''));
         if(isValid){
-          console.log('sen api')
+          const value={name: e.target.value}
+          const body = JSON.stringify(value);
+          const responseAPI=await API.patch('/profile',body,config)
+          reloadProfile();
+          getData();
         } else {
           e.target.value='';
           return setStyle({...style, placeHolder: 'invalid character', tipNotif: 'symbol number not allow'})
@@ -37,7 +50,7 @@ export default function Profile() {
         showEdit: false,
         inputValue: '',
         placeHolder: 'Type here',
-        tipNotif: 'name must more 5 character'
+        tipNotif: 'name must more 4 character'
       })
     }
   }
@@ -51,7 +64,17 @@ export default function Profile() {
     setJourney(response.data.result);
   }
 
-  useEffect( () => getData(), [] )
+  const reloadProfile = async () => {
+    const responseAPI=await API.get('/profilereload',config);
+    const data=responseAPI.data.result;
+    setShowData({name: data.name, image: "http://localhost:5000/uploads/"+data.image})
+    console.log(responseAPI);
+  }
+
+  useEffect( () => {
+    getData();
+    reloadProfile();
+  }, [] )
 
   return (
     <Container fluid className='px-5 py-5 bg-home'>
@@ -59,7 +82,7 @@ export default function Profile() {
         <div className='mb-5 text-center'>
             <Row className='d-flex justify-content-center mt-5 mb-2'>
               <Col md={2} className='cnt-img-profile'>
-                  <img className='profile-img' src={state.user.image} />
+                  <img className='profile-img' src={showData.image} />
                   <div onClick={()=>setShowEditImage(true)} className='edit-profile-img cursor-p'>
                     <img style={{width: 20}} src={camera}/>
                   </div>
@@ -75,7 +98,7 @@ export default function Profile() {
                   </OverlayTrigger>
                   :
                   <>
-                    <h2 onClick={()=>setStyle({...style, showEdit: true})} className='fw-bold my-4 profile-name cursor-p'>{state.user.name}</h2>
+                    <h2 onClick={()=>setStyle({...style, showEdit: true})} className='fw-bold my-4 profile-name cursor-p'>{showData.name}</h2>
                     <img onClick={()=>setStyle({...style, showEdit: true})} className='pen ms-2 cursor-p' src={pen}/>
                   </> 
                 }

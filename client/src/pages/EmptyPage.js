@@ -13,7 +13,7 @@ export function ServerError() {
 
 export function BookMarkEmpty(){
     return (
-        <div className='d-flex justify-content-center flex-column align-items-center err-page-cnt bookmark'>
+        <div className='d-flex justify-content-center flex-column align-items-center'>
             <img className='img-fluid  profile-empty' src={addBookmark} />
             <h2 className='text-err my-5'>Ooopsss your bookmark is empty</h2>
         </div>
