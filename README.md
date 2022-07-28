@@ -1,5 +1,7 @@
 # JOURNEY APP
 
+Journey app is web app is about share journey and adventure. you can add your journey see people journey and bookmark journey that you like 
+
 ### Stacks
 - React.Js
 - React Context
