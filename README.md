@@ -60,7 +60,7 @@ install xampp/mampp/lampp depend on computer Os
 
 click start apache and mysql
 
-open directory work on code editor
+open directory work on code editor terminal
 
 ```
 npx sequelize-cli db:migrate
